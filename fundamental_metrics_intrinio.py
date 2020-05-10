@@ -1,8 +1,7 @@
 import intrinio_sdk
-from utils.companies import Companies
-from metrics.fundamentals import Fundamentals
+from utils.tickers import Tickers
+from utils.fundamentals import Fundamentals
 from utils.my_value_json import MyValueJson
-import json
 
 #https://data.intrinio.com/data-tags/calculations-metrics
 
@@ -16,11 +15,10 @@ def main():
     path = 'json'
     my_value_json = MyValueJson()
 
-    companies = Companies()
-    tickers = companies.get_us_tickers()
+    tickers = Tickers()
     fundamentals = Fundamentals()
 
-    for ticker in tickers:
+    for ticker in tickers.get_us_tickers():
         for metric in metrics:
             metric_dict = fundamentals.get_company_metric(ticker, metric)
             my_value_json.to_json(path, ticker, metric_dict, metric)

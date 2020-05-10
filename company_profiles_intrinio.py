@@ -1,5 +1,5 @@
 import intrinio_sdk
-from utils.companies import Companies
+from utils.tickers import Tickers
 from utils.company import Company
 from utils.my_value_json import MyValueJson
 
@@ -11,12 +11,11 @@ def main():
     path = 'json'
     my_value_json = MyValueJson()
 
-    companies = Companies()
-    tickers = companies.get_us_tickers()
+    tickers = Tickers()
 
     company = Company()
 
-    for ticker in tickers:
+    for ticker in tickers.get_us_tickers():
         company_profile_dict = company.get_company_info(ticker)
         my_value_json.to_json(path, ticker, company_profile_dict, 'profile')
 
