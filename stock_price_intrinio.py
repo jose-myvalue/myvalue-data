@@ -3,9 +3,10 @@ import intrinio_sdk
 from utils.stocks import Stocks
 from utils.my_value_json import MyValueJson
 from utils.tickers import Tickers
+import os
 
-intrinio_sdk.ApiClient().configuration.api_key['api_key'] = 'OjA5ZGY4MWI2NjM1NDZkMDE5MzAxYzNkZDIxOTg1ZTMz'
-
+INTRINIO_API = os.getenv('INTRINIO_API')
+intrinio_sdk.ApiClient().configuration.api_key['api_key'] = INTRINIO_API
 
 def main():
 
