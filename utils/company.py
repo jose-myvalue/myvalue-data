@@ -3,8 +3,8 @@ from intrinio_sdk.rest import ApiException
 
 
 class Company:
-
-    def get_company_info(self, ticker):
+    @staticmethod
+    def get_company_info(ticker):
 
         identifier = ticker  # str | A Company identifier (Ticker, CIK, LEI, Intrinio ID)
 

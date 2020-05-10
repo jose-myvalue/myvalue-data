@@ -1,8 +1,10 @@
 import intrinio_sdk
 from intrinio_sdk.rest import ApiException
 
+
 class Fundamentals:
 
+    @staticmethod
     def get_company_metric(ticker, metric):
         identifier = ticker  # str | A Company identifier (Ticker, CIK, LEI, Intrinio ID)
         tag = metric  # str | An Intrinio data tag ID or code reference [see - https://data.intrinio.com/data-tags]

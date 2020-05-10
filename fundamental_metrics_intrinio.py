@@ -1,5 +1,5 @@
 import intrinio_sdk
-from companies import Companies
+from utils.companies import Companies
 from metrics.fundamentals import Fundamentals
 import json
 
