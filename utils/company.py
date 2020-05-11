@@ -17,7 +17,7 @@ class Company:
             company_profile_dict['stock_exchange'] = api_response.stock_exchange
 
             company_dict = dict()
-            company_dict[ticker] = company_profile_dict
+            company_dict['company_profile'] = company_profile_dict
             return company_dict
 
         except ApiException as e:

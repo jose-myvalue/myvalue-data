@@ -9,9 +9,9 @@ class Stocks:
         security_api = intrinio_sdk.SecurityApi()
 
         identifier = ticker  # str | A Security identifier (Ticker, FIGI, ISIN, CUSIP, Intrinio ID)
-        start_date = '2020-05-01'  # date | Return prices on or after the date (optional)
+        start_date = '2019-05-01'  # date | Return prices on or after the date (optional)
         end_date = '2020-05-10'  # date | Return prices on or before the date (optional)
-        frequency = 'daily'  # str | Return stock prices in the given frequency (optional) (default to daily)
+        frequency = 'weekly'  # str | Return stock prices in the given frequency (optional) (default to daily)
         page_size = 100  # int | The number of results to return (optional) (default to 100)
         next_page = ''  # str | Gets the next page of data from a previous API call (optional)
 
@@ -30,7 +30,7 @@ class Stocks:
                 stock_prices_list.append(stock_prices_dict)
 
             company_dict = dict()
-            company_dict[ticker] = stock_prices_list
+            company_dict['stock_prices'] = stock_prices_list
 
             return company_dict
 

@@ -31,9 +31,7 @@ class Fundamentals:
             metric_dict = dict()
             metric_dict[metric] = metric_list
 
-            company_dict = dict()
-            company_dict[ticker] = metric_dict
-            return company_dict
+            return metric_dict
 
         except ApiException as e:
             print("Exception when calling CompanyApi->get_company_historical_data: %s\r\n" % e)
