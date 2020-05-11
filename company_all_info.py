@@ -29,7 +29,7 @@ def main():
     for ticker in tqdm(tickers.get_us_tickers()):
         company_dict = dict()
         company_dict['company_profile'] = company.get_company_info(ticker)
-        for metric in tqdm(metrics.get_value_metrics()):
+        for metric in metrics.get_value_metrics():
             metric_dict = fundamentals.get_company_metric(ticker, metric)
             company_dict[metric] = metric_dict
 
