@@ -29,10 +29,7 @@ class Stocks:
                 stock_prices_dict['close'] = price.close
                 stock_prices_list.append(stock_prices_dict)
 
-            company_dict = dict()
-            company_dict['stock_prices'] = stock_prices_list
-
-            return company_dict
+            return stock_prices_list
 
         except ApiException as e:
             print("Exception when calling SecurityApi->get_security_stock_prices: %s\r\n" % e)

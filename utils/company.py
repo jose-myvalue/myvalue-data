@@ -16,9 +16,7 @@ class Company:
             company_profile_dict["company_name"] = api_response.name
             company_profile_dict['stock_exchange'] = api_response.stock_exchange
 
-            company_dict = dict()
-            company_dict['company_profile'] = company_profile_dict
-            return company_dict
+            return company_profile_dict
 
         except ApiException as e:
             print("Exception when calling CompanyApi->get_company: %s\n" % e)

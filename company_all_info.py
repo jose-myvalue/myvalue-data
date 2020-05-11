@@ -1,6 +1,7 @@
 import intrinio_sdk
 
 from utils.tickers import Tickers
+from utils.metrics import Metrics
 from utils.company import Company
 from utils.fundamentals import Fundamentals
 from utils.stocks import Stocks
@@ -14,29 +15,28 @@ intrinio_sdk.ApiClient().configuration.api_key['api_key'] = INTRINIO_API
 
 
 def main():
-    metrics = ['ebit', 'freecashflow', 'altmanzscore']
 
     path = 'json'
     my_value_json = MyValueJson()
 
     tickers = Tickers()
+    metrics = Metrics()
 
     company = Company()
     fundamentals = Fundamentals()
     stock = Stocks()
 
     for ticker in tqdm(tickers.get_us_tickers()):
-        company_all_info_list = list()
-        company_profile_dict = company.get_company_info(ticker)
-        company_all_info_list.append(company_profile_dict)
-        for metric in tqdm(metrics):
+        data_dict = dict()
+        data_dict['company_profile'] = company.get_company_info(ticker)
+        for metric in tqdm(metrics.get_value_metrics()):
             metric_dict = fundamentals.get_company_metric(ticker, metric)
-            company_all_info_list.append(metric_dict)
+            data_dict[metric] = metric_dict
 
         price_list = stock.get_close_price(ticker)
-        company_all_info_list.append(price_list)
+        data_dict['stock_prices'] = price_list
 
-        my_value_json.to_json(path, ticker, company_all_info_list, 'all')
+        my_value_json.to_json(path, ticker, data_dict, 'all')
 
 
 if __name__ == '__main__':
