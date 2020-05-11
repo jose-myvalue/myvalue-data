@@ -27,16 +27,16 @@ def main():
     stock = Stocks()
 
     for ticker in tqdm(tickers.get_us_tickers()):
-        data_dict = dict()
-        data_dict['company_profile'] = company.get_company_info(ticker)
+        company_dict = dict()
+        company_dict['company_profile'] = company.get_company_info(ticker)
         for metric in tqdm(metrics.get_value_metrics()):
             metric_dict = fundamentals.get_company_metric(ticker, metric)
-            data_dict[metric] = metric_dict
+            company_dict[metric] = metric_dict
 
         price_list = stock.get_close_price(ticker)
-        data_dict['stock_prices'] = price_list
+        company_dict['stock_prices'] = price_list
 
-        my_value_json.to_json(path, ticker, data_dict, 'all')
+        my_value_json.to_json(path, ticker, company_dict, 'all')
 
 
 if __name__ == '__main__':
