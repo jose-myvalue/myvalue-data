@@ -13,8 +13,12 @@ class Company:
             api_response = company_api.get_company(identifier)
 
             company_profile_dict = dict()
-            company_profile_dict["company_name"] = api_response.name
-            company_profile_dict['stock_exchange'] = api_response.stock_exchange
+            company_name_list = list()
+            stock_exchange_list = list()
+            company_name_list.append(api_response.name)
+            stock_exchange_list.append(api_response.stock_exchange)
+            company_profile_dict["company_name"] = company_name_list
+            company_profile_dict['stock_exchange'] = stock_exchange_list
 
             return company_profile_dict
 

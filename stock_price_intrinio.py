@@ -1,7 +1,7 @@
 from __future__ import print_function
 import intrinio_sdk
 from utils.stocks import Stocks
-from utils.my_value_json import MyValueJson
+from utils.persister import Persister
 from utils.tickers import Tickers
 import os
 
@@ -11,7 +11,7 @@ intrinio_sdk.ApiClient().configuration.api_key['api_key'] = INTRINIO_API
 def main():
 
     path = 'json'
-    my_value_json = MyValueJson()
+    my_value_json = Persister()
 
     tickers = Tickers()
 

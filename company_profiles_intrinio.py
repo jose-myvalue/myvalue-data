@@ -1,7 +1,7 @@
 import intrinio_sdk
 from utils.tickers import Tickers
 from utils.company import Company
-from utils.my_value_json import MyValueJson
+from utils.persister import Persister
 import os
 
 INTRINIO_API = os.getenv('INTRINIO_API')
@@ -11,7 +11,7 @@ intrinio_sdk.ApiClient().configuration.api_key['api_key'] = INTRINIO_API
 def main():
 
     path = 'json'
-    my_value_json = MyValueJson()
+    my_value_json = Persister()
 
     tickers = Tickers()
 

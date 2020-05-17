@@ -1,11 +1,13 @@
 import intrinio_sdk
 
 from utils.tickers import Tickers
-from utils.metrics import Metrics
+from utils.metricnames import MetricNames
 from utils.company import Company
-from utils.fundamentals import Fundamentals
+from utils.metricscalculator import MetricsCalculator
 from utils.stocks import Stocks
-from utils.my_value_json import MyValueJson
+from utils.persister import Persister
+
+import pandas as pd
 
 import os
 from tqdm import tqdm
@@ -17,26 +19,34 @@ intrinio_sdk.ApiClient().configuration.api_key['api_key'] = INTRINIO_API
 def main():
 
     path = 'json'
-    my_value_json = MyValueJson()
+    my_value_json = Persister()
 
     tickers = Tickers()
-    metrics = Metrics()
+    metrics = MetricNames()
 
     company = Company()
-    fundamentals = Fundamentals()
+    fundamentals = MetricsCalculator()
     stock = Stocks()
 
     for ticker in tqdm(tickers.get_us_tickers()):
         company_dict = dict()
         company_dict['company_profile'] = company.get_company_info(ticker)
-        for metric in metrics.get_value_metrics():
-            metric_dict = fundamentals.get_company_metric(ticker, metric)
-            company_dict[metric] = metric_dict
+        company_profile_df = pd.DataFrame(company_dict['company_profile'])
+        metrics_df = pd.DataFrame()
+        for metric in metrics.get_valuation_metrics_names():
+            if metrics_df.empty:
+                metrics_df = fundamentals.get_company_valuation_metric(ticker, metric, frequency='yearly')
+            else:
+                metrics_df = pd.merge(metrics_df, fundamentals.get_company_valuation_metric(ticker, metric, frequency='yearly'), on='date')
+
+
+        print(metrics_df)
 
         price_list = stock.get_close_price(ticker)
         company_dict['stock_prices'] = price_list
 
         my_value_json.to_json(path, ticker, company_dict, 'all')
+        break
 
 
 if __name__ == '__main__':

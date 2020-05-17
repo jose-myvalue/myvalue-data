@@ -1,7 +1,7 @@
 import json
 
 
-class MyValueJson:
+class Persister:
 
     @staticmethod
     def to_json(path, ticker, object, id='_'):
@@ -11,3 +11,7 @@ class MyValueJson:
         json.dump(object, file)
 
         file.close()
+
+    @staticmethod
+    def to_dataframe():
+        pass

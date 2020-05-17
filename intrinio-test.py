@@ -14,17 +14,17 @@ intrinio_sdk.ApiClient().configuration.api_key['api_key'] = 'OjA5ZGY4MWI2NjM1NDZ
 company_api = intrinio_sdk.CompanyApi()
 
 #final_ebit_df = pd.DataFrame()
-
+#volume: number of stocks (daily) -
 
 try:
     ticker = 'AAPL'
     print(ticker)
     identifier = ticker  # str | A Company identifier (Ticker, CIK, LEI, Intrinio ID)
-    tag = 'currentratio'  # str | An Intrinio data tag ID or code reference [see - https://data.intrinio.com/data-tags]
+    tag = 'freecashflow'  # str | An Intrinio data tag ID or code reference [see - https://data.intrinio.com/data-tags]
     frequency = 'yearly'  # str | Return historical data in the given frequency (optional) (default to daily)
     type = ''  # str | Return historical data for given fiscal period type (optional)
     start_date = '2010-01-01'  # date | Return historical data on or after this date (optional)
-    end_date = '2020-01-01'  # date | Return historical data on or before this date (optional)
+    end_date = '2020-05-14'  # date | Return historical data on or before this date (optional)
     sort_order = 'desc'  # str | Sort by date `asc` or `desc` (optional) (default to desc)
     page_size = 100  # int | The number of results to return (optional) (default to 100)
     next_page = ''  # str | Gets the next page of data from a previous API call (optional)
