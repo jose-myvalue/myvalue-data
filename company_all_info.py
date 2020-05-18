@@ -5,7 +5,7 @@ from utils.metricnames import MetricNames
 from utils.company import Company
 from utils.metricscalculator import MetricsCalculator
 from utils.stocks import Stocks
-from utils.persister import Persister
+from utils.persistor import Persistor
 
 import pandas as pd
 
@@ -19,7 +19,7 @@ intrinio_sdk.ApiClient().configuration.api_key['api_key'] = INTRINIO_API
 def main():
 
     path = 'json'
-    my_value_json = Persister()
+    my_value_json = Persistor()
 
     tickers = Tickers()
     metrics = MetricNames()
@@ -35,9 +35,9 @@ def main():
         metrics_df = pd.DataFrame()
         for metric in metrics.get_valuation_metrics_names():
             if metrics_df.empty:
-                metrics_df = fundamentals.get_company_valuation_metric(ticker, metric, frequency='yearly')
+                metrics_df = fundamentals.get_company_metrics(ticker, metric, frequency='yearly')
             else:
-                metrics_df = pd.merge(metrics_df, fundamentals.get_company_valuation_metric(ticker, metric, frequency='yearly'), on='date')
+                metrics_df = pd.merge(metrics_df, fundamentals.get_company_metrics(ticker, metric, frequency='yearly'), on='date')
 
 
         print(metrics_df)
@@ -45,7 +45,7 @@ def main():
         price_list = stock.get_close_price(ticker)
         company_dict['stock_prices'] = price_list
 
-        my_value_json.to_json(path, ticker, company_dict, 'all')
+        my_value_json.write_json(path, ticker, company_dict, 'all')
         break
 
 
