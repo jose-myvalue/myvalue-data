@@ -23,8 +23,9 @@ intrinio_sdk.ApiClient().configuration.api_key['api_key'] = INTRINIO_API
 
 def main():
     persistor = Persistor()
-    start_date = '2020-02-01'
-    end_date = '2020-03-31'
+    start_date = '2020-05-18'
+    end_date = '2020-04-01'
+    frequency = 'daily'
 
     tickers = Tickers()
     metrics = MetricNames()
@@ -34,12 +35,12 @@ def main():
     for ticker in tqdm(tickers.get_us_tickers()):
         for metric in metrics.get_valuation_metrics_names():
             if path.exists('pickle/' + ticker + '_' + metric + '_valuation.pkl'):
-                metrics_df = persistor.read_parquet('pickle', ticker, metric, 'valuation')
+                metrics_df = persistor.read_pickle('pickle', ticker, metric, 'valuation')
             else:
                 metrics_df = pd.DataFrame()
 
             if metrics_df.empty:
-                metrics_df = calculator.get_company_metrics(ticker, metric, start_date, end_date, frequency='daily')
+                metrics_df = calculator.get_company_metrics(ticker, metric, start_date, end_date, frequency)
                 metrics_df.sort_index(inplace=True)
                 persistor.write_pickle('pickle', ticker, metric, metrics_df, 'valuation')
             else:

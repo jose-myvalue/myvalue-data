@@ -3,6 +3,8 @@ from pprint import pprint
 import intrinio_sdk
 from intrinio_sdk.rest import ApiException
 
+from datequarter import DateQuarter
+
 import pandas as pd
 
 pd.set_option('display.float_format', lambda x: '%.4f' % x)
@@ -22,6 +24,8 @@ class MetricsCalculator:
         page_size = 100  # int | The number of results to return (optional) (default to 100)
         next_page = next_page  # str | Gets the next page of data from a previous API call (optional)
 
+        print('oye que he entrado')
+
         try:
             company_api = intrinio_sdk.CompanyApi()
             api_response = company_api.get_company_historical_data(identifier, tag, frequency=frequency, type=type,
@@ -31,14 +35,24 @@ class MetricsCalculator:
 
             #pprint(api_response)
             df = pd.DataFrame(api_response.historical_data_dict)
-            df.rename(columns={"value": metric}, inplace=True)
-            if frequency == 'yearly':
-                df['date'] = df['date'].apply(lambda x: x.year)
-            elif frequency == 'quarterly':
-                df['date'] = df['date'].apply(lambda x: str(str(x.year) + '-Q' + str(((x.month-1)//3)+1)))
-
-            df['date'] = pd.to_datetime(df['date'])
-            df.set_index('date', inplace=True)
+            if not df.empty:
+                df.rename(columns={"value": metric}, inplace=True)
+                if frequency == 'yearly':
+                    df.reset_index('date', inplace=True)
+                    df['date'] = df['date'].apply(lambda x: x.year)
+                    df.set_index('date', inplace=True)
+                elif frequency == 'quarterly':
+                    df['date'] = df['date'].apply(lambda x: DateQuarter.from_date(x))
+                    df.set_index('date', inplace=True)
+                elif frequency == 'daily':
+                    df['date'] = pd.to_datetime(df['date'])
+                    df.set_index('date', inplace=True)
+                else:
+                    print(frequency + ': wrong frequency range')
+                    return None
+            else:
+                print('dataframe empty for ' + str(metric) + " " + str(identifier))
+                return None
 
             return df
 

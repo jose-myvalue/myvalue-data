@@ -12,8 +12,16 @@ class MetricNames:
     #quarterly basis
     _solvency_leverage_metrics = ['debttoequity', 'netdebt', 'leverageratio', 'debttoebitda', 'altmanzscore']
 
+    #quarterly basis (percentages)
+    _efectiveness_metrics = ['roe', 'roa', 'roce']
+
     #quarterly basis
     _liquidity_metrics = ['currentratio']
+
+    #quarterly basis
+    _profitability_metrics = ['grossmargin']
+
+
 
     def get_valuation_metrics_names(self):
         return self._valuation_metrics
