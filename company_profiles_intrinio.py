@@ -1,7 +1,7 @@
 import intrinio_sdk
 from utils.tickers import Tickers
 from utils.company import Company
-from utils.persistor import Persistor
+from persistors.persistor import Persistor
 import os
 
 INTRINIO_API = os.getenv('INTRINIO_API')

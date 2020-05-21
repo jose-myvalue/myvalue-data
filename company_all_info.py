@@ -5,7 +5,7 @@ from utils.metricnames import MetricNames
 from utils.company import Company
 from utils.metricscalculator import MetricsCalculator
 from utils.stocks import Stocks
-from utils.persistor import Persistor
+from persistors.persistor import Persistor
 
 import pandas as pd
 

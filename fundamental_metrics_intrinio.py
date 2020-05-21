@@ -1,7 +1,7 @@
 import intrinio_sdk
 from utils.tickers import Tickers
 from utils.metricscalculator import MetricsCalculator
-from utils.persistor import Persistor
+from persistors.persistor import Persistor
 import os
 
 #https://data.intrinio.com/data-tags/calculations-metrics

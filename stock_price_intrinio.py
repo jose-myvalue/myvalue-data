@@ -1,7 +1,7 @@
 from __future__ import print_function
 import intrinio_sdk
 from utils.stocks import Stocks
-from utils.persistor import Persistor
+from persistors.persistor import Persistor
 from utils.tickers import Tickers
 import os
 

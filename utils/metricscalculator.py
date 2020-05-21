@@ -24,8 +24,6 @@ class MetricsCalculator:
         page_size = 100  # int | The number of results to return (optional) (default to 100)
         next_page = next_page  # str | Gets the next page of data from a previous API call (optional)
 
-        print('oye que he entrado')
-
         try:
             company_api = intrinio_sdk.CompanyApi()
             api_response = company_api.get_company_historical_data(identifier, tag, frequency=frequency, type=type,
