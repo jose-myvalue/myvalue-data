@@ -16,6 +16,7 @@ def main():
             if df is not None:
                 persistor.write_json_quarterly_basis('json/', ticker, metric, df, 'solvency_leverage')
             else:
+
                 print(ticker + ' '  + metric + ' ' + 'dataframe doesn\'t exits')
 
 
