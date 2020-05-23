@@ -18,7 +18,7 @@ intrinio_sdk.ApiClient().configuration.api_key['api_key'] = INTRINIO_API
 
 def main():
 
-    path = 'json'
+    path = '../json'
     my_value_json = Persistor()
 
     tickers = Tickers()

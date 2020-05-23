@@ -14,7 +14,7 @@ def main():
         for metric in metrics.get_solvency_leverage_metrics():
             df = persistor.read_pickle('pickle', ticker, metric, 'solvency_leverage')
             if df is not None:
-                persistor.write_json_quarterly_basis('json/', ticker, metric, df, 'solvency_leverage')
+                persistor.write_dataframe_to_json_quarterly_basis('json/', ticker, metric, df, 'solvency_leverage')
             else:
                 print(ticker + ' '  + metric + ' ' + 'dataframe doesn\'t exits')
 

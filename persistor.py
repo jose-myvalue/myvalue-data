@@ -7,7 +7,7 @@ import os
 class Persistor:
 
     @staticmethod
-    def write_json_daily_basis(path, ticker, metric, df, id='_'):
+    def write_dataframe_to_json_daily_basis(path, ticker, metric, df, id='_'):
         try:
             df.reset_index(inplace=True)
             df['date'] = df['date'].dt.strftime('%Y-%m-%d')
@@ -19,7 +19,7 @@ class Persistor:
             print(str(e))
 
     @staticmethod
-    def write_json_quarterly_basis(path, ticker, metric, df, id='_'):
+    def write_dataframe_to_json_quarterly_basis(path, ticker, metric, df, id='_'):
         try:
             df.reset_index(inplace=True)
             df.set_index('date', inplace=True)
@@ -27,6 +27,14 @@ class Persistor:
             df.to_json(path + ticker + '_' + metric + '_' + id + '.json')
         except AttributeError as e:
             print(ticker + ' ' + metric + ' ' + 'dataframe empty')
+
+    @staticmethod
+    def write_dict_to_json(path, ticker, metric, dictionary, id='_'):
+        file_name = str(path + '/' + ticker + '_' + metric + '_' + id + '.json')
+        file = open(file_name, 'w+')
+        json.dump(dictionary, file)
+        file.close()
+
 
     @staticmethod
     def write_pickle(path, ticker, metric, df, id):
