@@ -3,9 +3,9 @@ import intrinio_sdk
 from utils.tickers import Tickers
 from utils.metricnames import MetricNames
 from utils.company import Company
-from utils.metricscalculator import MetricsCalculator
+from utils.metrics import Metrics
 from utils.stocks import Stocks
-from persistors.persistor import Persistor
+from persistor import Persistor
 
 import pandas as pd
 
@@ -25,7 +25,7 @@ def main():
     metrics = MetricNames()
 
     company = Company()
-    fundamentals = MetricsCalculator()
+    fundamentals = Metrics()
     stock = Stocks()
 
     for ticker in tqdm(tickers.get_us_tickers()):

@@ -1,7 +1,7 @@
 import intrinio_sdk
 from utils.tickers import Tickers
-from utils.metricscalculator import MetricsCalculator
-from persistors.persistor import Persistor
+from utils.metrics import Metrics
+from persistor import Persistor
 import os
 
 #https://data.intrinio.com/data-tags/calculations-metrics
@@ -18,7 +18,7 @@ def main():
     my_value_json = Persistor()
 
     tickers = Tickers()
-    fundamentals = MetricsCalculator()
+    fundamentals = Metrics()
 
     for ticker in tickers.get_us_tickers():
         for metric in metrics:
