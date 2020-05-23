@@ -1,25 +1,24 @@
 class MetricNames:
 
-#['ebit', 'ebitda', 'freecashflow', 'altmanzscore', 'currentratio', 'debttoequity','ebittointerestex',
-# 'marketcap','debttoebitda', 'profitmargin', 'enterprisevalue', 'volume']
-
-#currentratio: non daily data
+#, 'ebittointerestex',
 
     #daily basis
     _valuation_metrics = ['evtoebit', 'evtoebitda', 'enterprisevalue', 'pricetoearnings', 'dividendyield',
-                          'marketcap', 'pricetobook']
+                          'marketcap', 'pricetobook', 'earningsyield', 'marketcap']
 
     #quarterly basis
-    _solvency_leverage_metrics = ['debttoequity', 'netdebt', 'leverageratio', 'debttoebitda', 'altmanzscore']
+    _solvency_leverage_metrics = ['debttoequity', 'netdebt', 'leverageratio', 'debttoebitda', 'altmanzscore',
+                                  'bookvaluepershare', 'cashdividendspershare', 'totalrevenue', 'ebitda', 'ebit',
+                                  'totalassets','freecashflow']
 
     #quarterly basis (percentages)
-    _efectiveness_metrics = ['roe', 'roa', 'roce']
+    _efectiveness_metrics = ['roe', 'roa', 'roce', 'totalequity']
 
     #quarterly basis
     _liquidity_metrics = ['currentratio']
 
     #quarterly basis
-    _profitability_metrics = ['grossmargin']
+    _profitability_metrics = ['grossmargin', 'netincome', 'capex', 'ebitdamargin', 'ebitmargin', 'profitmargin']
 
 
 
@@ -28,3 +27,12 @@ class MetricNames:
 
     def get_solvency_leverage_metrics(self):
         return self._solvency_leverage_metrics
+
+    def get_efectiveness_metrics(self):
+        return self._efectiveness_metrics
+
+    def get_liquidity_metrics(self):
+        return self._liquidity_metrics
+
+    def get_profitability_metrics(self):
+        return self._profitability_metrics
