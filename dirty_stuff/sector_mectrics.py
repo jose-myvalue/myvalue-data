@@ -9,7 +9,7 @@ intrinio_sdk.ApiClient().configuration.api_key['api_key'] = 'OjA5ZGY4MWI2NjM1NDZ
 index_api = intrinio_sdk.IndexApi()
 
 identifier = '$SIC.70'  # str | An Index Identifier (symbol, Intrinio ID)
-tag = 'pricetoearnings'  # str | An Intrinio data tag ID or code-name
+tag = 'ebitda'  # str | An Intrinio data tag ID or code-name
 type = ''  # str | Filter by type, when applicable (optional)
 start_date = '2018-01-01'  # date | Get historical data on or after this date (optional)
 end_date = ''  # date | Get historical data on or before this date (optional)
