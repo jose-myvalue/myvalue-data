@@ -20,6 +20,9 @@ class MetricNames:
     #quarterly basis
     _profitability_metrics = ['grossmargin', 'netincome', 'capex', 'ebitdamargin', 'ebitmargin', 'profitmargin']
 
+    #quarterly basis
+    _growth_metrics = ['epsgrowth']
+
 
 
     def get_valuation_metrics_names(self):

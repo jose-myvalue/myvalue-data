@@ -1,44 +1,19 @@
+from __future__ import print_function
+import os
 import intrinio_sdk
 from intrinio_sdk.rest import ApiException
-from intrinio_sdk.models.company import Company
-import os
-import pandas as pd
-import pickle
-import json
+from pprint import pprint
 
 INTRINIO_API = os.getenv('INTRINIO_API')
 intrinio_sdk.ApiClient().configuration.api_key['api_key'] = INTRINIO_API
 
-security_api = intrinio_sdk.SecurityApi()
+index_api = intrinio_sdk.IndexApi()
 
-ticker = 'AAPL'
-
-identifier = ticker  # str | A Company identifier (Ticker, CIK, LEI, Intrinio ID)
+page_size = 100 # int | The number of results to return (optional) (default to 100)
+next_page = '' # str | Gets the next page of data from a previous API call (optional)
 
 try:
-    company_api = intrinio_sdk.CompanyApi()
-    company = company_api.get_company(identifier)
-    company_dict = dict()
-    company_dict['business_address'] = company.business_address
-    company_dict['ceo'] = company.ceo
-    company_dict['company_url'] = company.company_url
-    company_dict['employees'] = company.employees
-    company_dict['hq_address_city'] = company.hq_address_city
-    company_dict['hq_address_postal_code'] = company.hq_address_postal_code
-    company_dict['hq_country'] = company.hq_country
-    company_dict['hq_state'] = company.hq_state
-    company_dict['industry_category'] = company.industry_category
-    company_dict['industry_group'] = company.industry_group
-    company_dict['legal_name'] = company.legal_name
-    company_dict['name'] = company.name
-    company_dict['sector'] = company.sector
-    company_dict['short_description'] = company.short_description
-    company_dict['stock_exchange'] = company.stock_exchange
-    company_dict['ticker'] = company.ticker
-
-    with open('../json/aapl_company_profile.json', 'w') as fp:
-        json.dump(company_dict, fp)
-
-
+  api_response = index_api.get_all_sic_indices(page_size=page_size, next_page=next_page)
+  pprint(api_response)
 except ApiException as e:
-    print("Exception when calling CompanyApi->get_company: %s\n" % e)
+  print("Exception when calling IndexApi->get_all_sic_indices: %s\r\n" % e)
