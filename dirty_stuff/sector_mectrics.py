@@ -22,5 +22,6 @@ try:
                                                            end_date=end_date, sort_order=sort_order,
                                                            page_size=page_size, next_page=next_page)
     pprint(api_response)
+    print('done!')
 except ApiException as e:
     print("Exception when calling IndexApi->get_sic_index_historical_data: %s\r\n" % e)
