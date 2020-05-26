@@ -1,27 +1,46 @@
-from __future__ import print_function
-import time
-import intrinio_sdk
-from intrinio_sdk.rest import ApiException
-from pprint import pprint
+import pickle
+import pandas as pd
 
-intrinio_sdk.ApiClient().configuration.api_key['api_key'] = 'OjA5ZGY4MWI2NjM1NDZkMDE5MzAxYzNkZDIxOTg1ZTMz'
+from persistor import Persistor
+from utils.tickers import Tickers
 
-index_api = intrinio_sdk.IndexApi()
+persistor = Persistor()
+tickers = Tickers()
 
-identifier = '$SIC.70'  # str | An Index Identifier (symbol, Intrinio ID)
-tag = 'ebitda'  # str | An Intrinio data tag ID or code-name
-type = ''  # str | Filter by type, when applicable (optional)
-start_date = '2018-01-01'  # date | Get historical data on or after this date (optional)
-end_date = ''  # date | Get historical data on or before this date (optional)
-sort_order = 'desc'  # str | Sort by date `asc` or `desc` (optional) (default to desc)
-page_size = 100  # int | The number of results to return (optional) (default to 100)
-next_page = ''  # str | Gets the next page of data from a previous API call (optional)
+market_df = pd.DataFrame()
+sector_set = set()
+industry_category_set = set()
+industry_group_set = set()
 
-try:
-    api_response = index_api.get_sic_index_historical_data(identifier, tag, type=type, start_date=start_date,
-                                                           end_date=end_date, sort_order=sort_order,
-                                                           page_size=page_size, next_page=next_page)
-    pprint(api_response)
-    print('done!')
-except ApiException as e:
-    print("Exception when calling IndexApi->get_sic_index_historical_data: %s\r\n" % e)
+companies_dict = dict()
+companies_valuation_dict = dict()
+
+for ticker in tickers.get_us_tickers():
+    company_dict = persistor.read_pickle('../pickle', ticker, 'company', 'profile')
+    company_valuation_metrics_df = persistor.read_pickle('../pickle', ticker, 'pricetoearnings', 'valuation')
+    companies_dict[ticker] = company_dict
+    companies_valuation_dict = company_valuation_metrics_df
+
+    sector_set.add(company_dict['sector'])
+    industry_category_set.add(company_dict['industry_category'])
+    industry_group_set.add(company_dict['industry_group'])
+
+industry_group_dict = dict()
+
+for industry_group in industry_group_set:
+    industry_group_list = list()
+    for ticker in tickers.get_us_tickers():
+        if companies_dict[ticker]['industry_group'] == industry_group:
+            industry_group_list.append(companies_dict[ticker]['ticker'])
+    industry_group_dict[industry_group] = industry_group_list
+
+print(industry_group_dict)
+
+for i in industry_group_dict:
+    print(i)
+    for c in industry_group_dict[i]:
+        print('\t' + c)
+        company_valuation_metrics_df = persistor.read_pickle('../pickle', c, 'pricetoearnings', 'valuation')
+        print('\tPER: ' + str(company_valuation_metrics_df.loc[company_valuation_metrics_df.index.max()]['pricetoearnings']))
+
+

@@ -5,6 +5,8 @@ from utils.metricnames import MetricNames
 from utils.metrics import Metrics
 from persistor import Persistor
 
+from datetime import datetime
+
 from time import time
 
 import os.path
@@ -69,7 +71,7 @@ class DownloadWorker(Thread):
 def main():
     ts = time()
     start_date = '2020-02-20'
-    end_date = '2020-05-20'
+    end_date = datetime.now()
     frequency = 'daily'
 
     tickers = Tickers()
