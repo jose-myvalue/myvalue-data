@@ -37,40 +37,15 @@ class DownloadWorker(Thread):
             try:
                 persistor = Persistor()
                 calculator = Metrics()
-                if path.exists('../pickle/' + ticker + '_' + metric + '_valuation.pkl'):
-                    metrics_df = persistor.read_pickle('pickle', ticker, metric, 'valuation')
-                else:
-                    metrics_df = pd.DataFrame()
-
-                if metrics_df.empty:
-                    metrics_df = calculator.get_company_metrics(ticker, metric, start_date, end_date, frequency)
-                    try:
-                        metrics_df.sort_index(inplace=True)
-                        persistor.write_pickle('pickle', ticker, metric, metrics_df, 'valuation')
-                    except AttributeError:
-                        print(ticker + ' ' + metric + ' ' + ' dataframe was not fetched from INTRINIO')
-                else:
-                    max_date = pd.to_datetime(metrics_df.index.values.max())
-                    min_date = pd.to_datetime(metrics_df.index.values.min())
-                    if metric in metrics_df and \
-                            ((max_date >= pd.to_datetime(start_date) >=
-                              min_date or \
-                              (min_date <= pd.to_datetime(end_date) <=
-                               max_date))):
-                        break
-
-                    metrics_new_df = calculator.get_company_metrics(ticker, metric, start_date, end_date,
-                                                                    frequency='daily')
-                    metrics_result_df = pd.concat([metrics_df, metrics_new_df])
-                    metrics_result_df.sort_index(inplace=True)
-                    persistor.write_pickle('pickle', ticker, metric, metrics_result_df, 'valuation')
+                metrics_df = calculator.get_company_metrics(ticker, metric, start_date, end_date, frequency)
+                persistor.write_pickle('pickle', ticker, metric, metrics_df)
             finally:
                 self.queue.task_done()
 
 
 def main():
     ts = time()
-    start_date = '2020-02-20'
+    start_date = '2020-03-20'
     end_date = datetime.now()
     frequency = 'daily'
 
@@ -79,7 +54,7 @@ def main():
 
     queue = Queue()
 
-    for x in range(5):
+    for x in range(6):
         worker = DownloadWorker(queue)
         worker.daemon = True
         worker.start()

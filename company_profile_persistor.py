@@ -27,7 +27,7 @@ class DownloadWorker(Thread):
                 persistor = Persistor()
                 company = Company()
                 company_profile_dict = company.get_company_info(ticker)
-                persistor.write_pickle('pickle', ticker, 'company', company_profile_dict, 'profile')
+                persistor.write_pickle('pickle', ticker, 'company', company_profile_dict)
             finally:
                 self.queue.task_done()
 

@@ -13,8 +13,8 @@ def main():
 
     for ticker in tickers.get_us_tickers():
         for metric in metrics.get_valuation_metrics_names():
-            df = persistor.read_pickle('pickle', ticker, metric, 'valuation')
-            persistor.write_dataframe_to_json_daily_basis('json/', ticker, metric, df, 'valuation')
+            df = persistor.read_pickle('pickle', ticker, metric)
+            persistor.write_dataframe_to_json_daily_basis('json/', ticker, metric, df)
 
 
 if __name__ == '__main__':

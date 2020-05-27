@@ -23,6 +23,8 @@ class MetricNames:
     #quarterly basis
     _growth_metrics = ['epsgrowth']
 
+    _industry_comparation_metrics = ['pricetobook', 'pricetoearnings', 'roe', 'roa', 'roce']
+
 
 
     def get_valuation_metrics_names(self):
@@ -39,3 +41,6 @@ class MetricNames:
 
     def get_profitability_metrics(self):
         return self._profitability_metrics
+
+    def get_industry_comparation_metrics(self):
+        return self._industry_comparation_metrics

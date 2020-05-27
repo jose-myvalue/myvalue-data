@@ -8,9 +8,9 @@ def main():
     tickers = Tickers()
 
     for ticker in tickers.get_us_tickers():
-        dictionary = persistor.read_pickle('pickle', ticker, 'company', 'profile')
+        dictionary = persistor.read_pickle('pickle', ticker, 'company')
         if dictionary is not None:
-            persistor.write_dict_to_json('json/', ticker, 'company', dictionary, 'profile')
+            persistor.write_dict_to_json('json/', ticker, 'company', dictionary)
         else:
             print(ticker + ' ' + 'stocks' + ' ' + 'dictionary doesn\'t exits')
 

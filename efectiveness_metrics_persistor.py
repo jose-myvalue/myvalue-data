@@ -37,7 +37,7 @@ class DownloadWorker(Thread):
                 persistor = Persistor()
                 calculator = Metrics()
                 metrics_df = calculator.get_company_metrics(ticker, metric, start_date, end_date, frequency)
-                persistor.write_pickle('pickle', ticker, metric, metrics_df, 'efectiveness')
+                persistor.write_pickle('pickle', ticker, metric, metrics_df)
             finally:
                 self.queue.task_done()
 

@@ -17,11 +17,11 @@ company_api = intrinio_sdk.CompanyApi()
 #volume: number of stocks (daily) -
 
 try:
-    ticker = 'AAPL'
+    ticker = 'MSFT'
     print(ticker)
     identifier = ticker  # str | A Company identifier (Ticker, CIK, LEI, Intrinio ID)
-    tag = 'epsgrowth'  # str | An Intrinio data tag ID or code reference [see - https://data.intrinio.com/data-tags]
-    frequency = 'quarterly'  # str | Return historical data in the given frequency (optional) (default to daily)
+    tag = 'pricetoearnings'  # str | An Intrinio data tag ID or code reference [see - https://data.intrinio.com/data-tags]
+    frequency = 'daily'  # str | Return historical data in the given frequency (optional) (default to daily)
     type = ''  # str | Return historical data for given fiscal period type (optional)
     start_date = '2010-01-01'  # date | Return historical data on or after this date (optional)
     end_date = '2020-05-14'  # date | Return historical data on or before this date (optional)
