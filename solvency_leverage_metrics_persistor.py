@@ -37,7 +37,7 @@ class DownloadWorker(Thread):
                 persistor = Persistor()
                 calculator = Metrics()
                 metrics_df = calculator.get_company_metrics(ticker, metric, start_date, end_date, frequency)
-                persistor.write_pickle('pickle', ticker, metric, metrics_df, 'solvency_leverage')
+                persistor.write_pickle('pickle', ticker, metric, metrics_df)
             finally:
                 self.queue.task_done()
 
@@ -45,9 +45,9 @@ class DownloadWorker(Thread):
 def main():
     ts = time()
 
-    start_date = '2010-05-18'
+    start_date = '2008-01-01'
     end_date = datetime.now()
-    frequency = 'quarterly'
+    frequency = 'yearly'
 
     tickers = Tickers()
     metrics = MetricNames()

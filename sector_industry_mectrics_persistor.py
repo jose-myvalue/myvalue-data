@@ -44,7 +44,7 @@ def get_grouped_companies(group_set, companies_dict):
     for group in group_set:
         group_list = list()
         for ticker in tickers.get_us_tickers():
-            ig = companies_dict[ticker]['industry_group'].replace('/', '-').replace(' ', '-').replace(',', '').lower()
+            ig = companies_dict[ticker]['industry_group'].replace('/', '-').replace(' ', '-').replace(',', '').lower() #TODO still need to change this for sector and industry category
             if ig == group:
                 group_list.append(companies_dict[ticker]['ticker'])
         group_dict[group] = group_list

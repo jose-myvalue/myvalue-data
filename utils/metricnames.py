@@ -9,7 +9,8 @@ class MetricNames:
     #quarterly basis
     _solvency_leverage_metrics = ['debttoequity', 'netdebt', 'leverageratio', 'debttoebitda', 'altmanzscore',
                                   'bookvaluepershare', 'cashdividendspershare', 'totalrevenue', 'ebitda', 'ebit',
-                                  'totalassets','freecashflow']
+                                  'totalassets','freecashflow', 'depreciationandamortization', 'nwc', 'ebitmargin',
+                                  'revenuegrowth', 'nwctorev']
 
     #quarterly basis (percentages)
     _efectiveness_metrics = ['roe', 'roa', 'roce', 'totalequity']

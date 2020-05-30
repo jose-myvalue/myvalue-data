@@ -36,7 +36,6 @@ class Metrics:
             if not df.empty:
                 df.rename(columns={"value": metric}, inplace=True)
                 if frequency == 'yearly':
-                    df.reset_index('date', inplace=True)
                     df['date'] = df['date'].apply(lambda x: x.year)
                     df.set_index('date', inplace=True)
                 elif frequency == 'quarterly':
